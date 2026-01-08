@@ -19,7 +19,7 @@ export const projects = [
         description: 'Designed and developed a striking portfolio showcasing my web development work. Built with Astro and Svelte for optimal performance, featuring smooth GSAP animations, Tailwind CSS v4 theming, and a unique purple-coral color palette. Demonstrates modern web development practices and responsive design.',
         tags: ['Astro', 'Svelte', 'Tailwind CSS v4', 'GSAP', 'TypeScript'],
         image: '../assets/images/portfoliov2.png', // Replace with your portfolio screenshot
-        link: '#' // Update with your deployed portfolio URL
+        link: '/' // Update with your deployed portfolio URL
     },
     {
         title: 'More Projects Coming Soon',                                                                                                           
