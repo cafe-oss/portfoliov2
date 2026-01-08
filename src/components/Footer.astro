@@ -1,0 +1,123 @@
+<footer class="max-w-container mx-auto px-5 pt-[50px] pb-5">
+    <div class="social-container rounded-default w-full p-10 shadow-default">
+        <div class="social-links flex flex-wrap justify-start items-center relative h-min gap-8 w-full px-[60px] py-0 overflow-visible max-w-container">
+            <a href="https://www.linkedin.com/in/jhon-alvin-cafe-648263304"
+                target="_blank"
+                class="social-link flex flex-row flex-1 justify-between items-center relative overflow-visible text-primary transition-all duration-300 min-w-[256px] w-px h-min pb-4 px-0 no-underline opacity-100 hover:translate-x-[5px] border-b border-[rgba(17,16,17,0.2)]">
+                <div class="link-content flex items-center gap-3">
+                    <div class="social-icon icon-linkedin w-6 h-6 flex items-center justify-center"></div>
+                    <span class="social-name font-medium text-base">LinkedIn</span>
+                </div>
+                <div class="arrow-icon icon-arrow w-4 h-4 opacity-70"></div>
+            </a>
+            
+            <a href="https://github.com/cafe-oss"
+                target="_blank"
+                class="social-link flex flex-row flex-1 justify-between items-center relative overflow-visible text-primary transition-all duration-300 min-w-[256px] w-px h-min pb-4 px-0 no-underline opacity-100 hover:translate-x-[5px] border-b border-[rgba(17,16,17,0.2)]">
+                <div class="link-content flex items-center gap-3">
+                    <div class="social-icon icon-github w-6 h-6 flex items-center justify-center"></div>
+                    <span class="social-name font-medium text-base">Github</span>
+                </div>
+                <div class="arrow-icon icon-arrow w-4 h-4 opacity-70"></div>
+            </a>
+
+            <a href="https://www.canva.com/design/DAGRSOor-II/0dW-jfZQyFu_2E3ncyiXoQ/edit?utm_content=DAGRSOor-II&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton"
+                target="_blank"
+                class="social-link flex flex-row flex-1 justify-between items-center relative overflow-visible text-primary transition-all duration-300 min-w-[256px] w-px h-min pb-4 px-0 no-underline opacity-100 hover:translate-x-[5px] border-b border-[rgba(17,16,17,0.2)]">
+                <div class="link-content flex items-center gap-3">
+                    <div class="social-icon icon-resume w-6 h-6 flex items-center justify-center"></div>
+                    <span class="social-name font-medium text-base">Resume</span>
+                </div>
+                <div class="arrow-icon icon-arrow w-4 h-4 opacity-70"></div>
+            </a>
+        </div>
+        
+        <div class="copyright text-center pt-5">
+            <a href="https://babarogic.com" target="_blank" class="text-text-light no-underline text-sm transition-colors duration-300 hover:text-primary">
+                Jhon Alvin Cafe © 2025. Inspired by Goran Babarogic
+            </a>
+        </div>
+    </div>
+</footer>
+
+<style>
+    .social-container {
+        background: linear-gradient(0deg, #F8F8FA00 29.8661%, #FCFCFD 100%);
+    }
+
+    /* Custom icons using CSS */
+    .icon-linkedin {
+        background: #0077b5;  /* LinkedIn blue */
+        border-radius: 3px;
+        position: relative;
+    }
+
+    /* Create simplified "in" letters */
+    .icon-linkedin::before {
+        content: 'in';
+        position: absolute;
+        color: white;
+        font-size: 10px;
+        font-weight: bold;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        font-family: Arial, sans-serif;
+    }
+    
+    .icon-github {
+        background: #24292e;
+        border-radius: 50%;
+        position: relative;
+    }
+
+    .icon-github::before {
+        content: '';
+        position: absolute;
+        width: 40%;
+        height: 40%;
+        background: white;
+        border-radius: 50%;
+        top: 30%;
+        left: 30%;
+    }
+
+    .icon-resume {
+        background:
+            linear-gradient(#FFA502 0 0) 0 0 / 100% 20% no-repeat,
+            linear-gradient(#FFA502 0 0) 20% 35% / 60% 8% no-repeat,
+            linear-gradient(#FFA502 0 0) 20% 50% / 50% 8% no-repeat,
+            linear-gradient(#FFA502 0 0) 20% 65% / 70% 8% no-repeat;
+        border: 2px solid #FFA502;
+        border-radius: 4px;
+    }
+    
+    
+    .icon-arrow {
+        display: inline-block;
+        position: relative;
+    }
+
+    .icon-arrow::before {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 2px;
+        background: currentColor;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+
+    .icon-arrow::after {
+        content: '';
+        position: absolute;
+        width: 6px;
+        height: 6px;
+        border-right: 2px solid currentColor;
+        border-top: 2px solid currentColor;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+    }
+</style>

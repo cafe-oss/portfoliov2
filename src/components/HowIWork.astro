@@ -1,0 +1,44 @@
+---
+// How I Work Section Component
+import ProcessCard from './ProcessCard.svelte';
+---
+
+<section class="how-i-work py-20" id="process">
+    <div class="max-w-container mx-auto">
+        <div class="section-header text-center max-w-[700px] mx-auto mb-[60px]">
+            <h2 class="text-[42px] font-bold mb-4">How I Work</h2>
+            <p class="text-text-light">
+                My development process ensures clean code, smooth communication, and projects delivered on time.
+            </p>
+        </div>
+
+        <div class="process-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+            
+            <ProcessCard />
+        </div>
+
+        <!-- Tools & Technologies -->
+        <div class="tools-section mt-16 bg-gradient-to-b from-[#FCFCFD] to-[#F8F8FA00] rounded-default p-10 shadow-default">
+            <h3 class="text-[28px] font-semibold mb-6 text-center">My Development Stack</h3>
+            <div class="flex flex-wrap justify-center gap-4">
+                <span class="px-5 py-2 bg-white rounded-default shadow-sm border border-border text-sm font-medium">WordPress</span>
+                <span class="px-5 py-2 bg-white rounded-default shadow-sm border border-border text-sm font-medium">PHP</span>
+                <span class="px-5 py-2 bg-white rounded-default shadow-sm border border-border text-sm font-medium">jQuery</span>
+                <span class="px-5 py-2 bg-white rounded-default shadow-sm border border-border text-sm font-medium">FullCalendar</span>
+                <span class="px-5 py-2 bg-white rounded-default shadow-sm border border-border text-sm font-medium">TCPDF</span>
+                <span class="px-5 py-2 bg-white rounded-default shadow-sm border border-border text-sm font-medium">Mailjet</span>
+                <span class="px-5 py-2 bg-white rounded-default shadow-sm border border-border text-sm font-medium">MySQL</span>
+                <span class="px-5 py-2 bg-white rounded-default shadow-sm border border-border text-sm font-medium">REST API</span>
+                <span class="px-5 py-2 bg-white rounded-default shadow-sm border border-border text-sm font-medium">Git</span>
+            </div>
+        </div>
+    </div>
+</section>
+
+<style>
+    @media (max-width: 768px) {
+        .process-grid {
+            grid-template-columns: 1fr;
+        }
+    }
+</style>

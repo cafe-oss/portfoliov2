@@ -41,3 +41,18 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+
+  Tailwind Font Size Scale:
+
+  | Tailwind Class | CSS Output          | Pixels  |
+  |----------------|---------------------|---------|
+  | text-xs        | font-size: 0.75rem  | 12px    |
+  | text-sm        | font-size: 0.875rem | 14px    |
+  | text-base      | font-size: 1rem     | 16px    |
+  | text-lg        | font-size: 1.125rem | 18px ✅ |
+  | text-xl        | font-size: 1.25rem  | 20px    |
+  | text-2xl       | font-size: 1.5rem   | 24px    |
+  | text-3xl       | font-size: 1.875rem | 30px    |
+  | text-4xl       | font-size: 2.25rem  | 36px    |
+  | text-5xl       | font-size: 3rem     | 48px    |

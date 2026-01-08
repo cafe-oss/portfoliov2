@@ -1,16 +1,26 @@
 ---
-
+import Layout from '../layouts/Layout.astro';
+import Header from '../components/Header.astro';
+import Hero from '../components/Hero.astro';
+import ToolsGrid from '../components/ToolsGrid.astro';
+import HowIWork from '../components/HowIWork.astro';
+import Footer from '../components/Footer.astro';
+// import TestimonialsGrid from '../components/TestimonialsGrid.svelte';
+import ProjectsShowcase from '../components/ProjectsShowcase.svelte';
+import ContactForm from '../components/ContactForm.svelte';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Portfolio v2 - Jhon Alvin Cafe">
+	<Header />
+
+	<div class="container max-w-container mx-auto px-5 pt-[120px] pb-5">
+		<Hero />
+		<ToolsGrid />
+		<HowIWork />
+		<!-- <TestimonialsGrid client:visible /> -->
+		<ProjectsShowcase client:idle />
+		<ContactForm client:visible />
+	</div>
+
+	<Footer />
+</Layout>

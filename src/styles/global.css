@@ -1,0 +1,44 @@
+@import "tailwindcss";
+
+/* Tailwind v4 Theme Configuration */
+@theme {
+  /* Option C: Creative WordPress - Purple + Coral + Gold */
+  --color-primary: #2C2C54;           /* Deep purple-blue - bold & creative */
+  --color-secondary: #FF6348;         /* Coral red - striking accent */
+  --color-accent: #FFA502;            /* Gold - premium feel */
+  --color-light-bg: #FAF9F8;          /* Warm white */
+  --color-card-bg: #ffffff;
+  --color-text-light: rgba(44, 44, 84, 0.6);  /* Adjusted to match primary */
+  --color-background: #F8F8FA;       /* Warm beige background */
+  --color-light-bg: #FCFCFD;
+  --color-text-white: rgb(249, 248, 245);
+  --color-border: rgb(230, 226, 222); /* Warmer border */
+  --color-secondary-light: rgba(255, 99, 72, 0.1);  /* Coral tint */
+  --color-accent-light: rgba(255, 165, 2, 0.1);     /* Gold tint */
+
+  /* Border Radius (Tailwind uses 'radius-' prefix) */
+  --radius-default: 36px;
+  --radius-small: 8px;
+  --radius-medium: 16px;
+  --radius-large: 32px;
+
+  /* Shadows */
+  --shadow-default: 0 10px 40px -14px rgba(0, 0, 0, 0.05);
+  --shadow-hover: 0 6px 20px rgba(0, 0, 0, 0.15);
+
+  /* Max Width */
+  /* --width-container: 1280px; */
+  --max-width-container: 1280px;
+
+  --transition-timing-function-smooth: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Global Styles */
+/* Note: Tailwind's Preflight already includes box-sizing, margin, and padding resets */
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: var(--color-primary);
+  background-color: var(--color-background);
+  line-height: 1.6;
+}

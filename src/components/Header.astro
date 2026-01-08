@@ -1,0 +1,91 @@
+<header class="w-full h-auto relative">
+    <div class="nav-container w-full flex justify-center transition-all duration-300 mx-auto px-8 py-6 fixed top-0 z-10" >
+        <nav class="navbar flex items-center justify-center gap-[20px] px-6 py-3 w-auto">
+            <div class="nav-left flex items-center">
+                <a href="/" class="logo flex items-center no-underline text-primary">
+                    <div class="logo-image w-10 h-10 rounded-lg overflow-hidden mr-2">
+                        <img src="../assets/images/favicon.ico" alt="Logo" class="w-full h-full object-cover">
+                    </div>
+                    <span class="logo-text font-semibold text-lg hidden sm:block">JAcafe</span>
+                </a>
+            </div>
+            
+            <!-- <div class="nav-center flex items-center gap-2">
+                <div class="nav-item flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-primary text-sm font-medium transition-all duration-300 hover:bg-black/[0.03]">
+                    <span>Landings</span>
+                </div>
+                
+                <div class="nav-item flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-primary text-sm font-medium transition-all duration-300 hover:bg-black/[0.03]">
+                    <span>Work</span>
+                </div>
+                
+                <a href="./ai#process" class="nav-item flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-primary text-sm font-medium transition-all duration-300 hover:bg-black/[0.03]">
+                    <span>Process</span>
+                </a>
+                
+                <a href="./ai#experience" class="nav-item flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-primary text-sm font-medium transition-all duration-300 hover:bg-black/[0.03]">
+                    <span>Experience</span>
+                </a>
+                
+                <a href="./ai#faq" class="nav-item flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-primary text-sm font-medium transition-all duration-300 hover:bg-black/[0.03]">
+                    <span>FAQ</span>
+                </a>
+                
+                <a href="./proposal" class="nav-item flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-primary text-sm font-medium transition-all duration-300 hover:bg-black/[0.03]">
+                    <span>Proposal</span>
+                </a>
+                
+                <div class="nav-item flex items-center gap-1.5 px-4 py-2.5 rounded-lg text-primary text-sm font-medium transition-all duration-300 hover:bg-black/[0.03]">
+                    <span>Athos Pro</span>
+                </div>
+            </div> -->
+            
+            <div class="nav-right flex items-center">
+                <a href="#contact" class="contact-btn inline-flex items-center px-5 py-2.5 bg-white text-primary rounded-default text-sm font-semibold no-underline border border-border shadow-sm transition-all duration-300 hover:-translate-y-0.5 hover:shadow-md" >
+                    Contact Me
+                </a>
+            </div>
+        </nav>
+    </div>
+</header>
+
+<style>
+    /* Styles for scrolled state */
+    .nav-container {
+      padding: 32px 32px 24px;
+    }
+
+    .nav-container.scrolled {
+      padding: 16px 120px 0;
+    }
+
+    .nav-container.scrolled .navbar {
+      background-color: white;
+      box-shadow:
+        rgba(0, 0, 0, 0.09) 0px 0.64px 0.64px -0.94px,
+        rgba(0, 0, 0, 0.08) 0px 1.93px 1.93px -1.88px,
+        rgba(0, 0, 0, 0.07) 0px 5.11px 5.11px -2.81px,
+        rgba(0, 0, 0, 0.03) 0px 16px 16px -3.75px;
+      border-radius: var(--radius-default);
+    }
+</style>
+
+<script>
+    // This runs once when the page loads
+    const navContainer = document.querySelector('.nav-container');
+    const SCROLL_THRESHOLD = 50;
+
+    function handleScroll() {
+      if (window.scrollY > SCROLL_THRESHOLD) {
+        navContainer?.classList.add('scrolled');
+      } else {
+        navContainer?.classList.remove('scrolled');
+      }
+    }
+
+    // Initial check
+    handleScroll();
+
+    // Listen for scroll events
+    window.addEventListener('scroll', handleScroll);
+</script>
