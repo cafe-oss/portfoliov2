@@ -87,12 +87,12 @@
                 currentIndex = newIndex;
             }
 
-            // Create ScrollTrigger for each project info
+            // Create ScrollTrigger for each project info with better boundary handling
             projectInfos.forEach((info, index) => {
                 ScrollTrigger.create({
                     trigger: info,
-                    start: 'top 60%',
-                    end: 'bottom 40%',
+                    start: 'top center',
+                    end: 'bottom center',
                     onEnter: () => switchImage(index),
                     onEnterBack: () => switchImage(index),
                     markers: false  // Set to true for debugging
@@ -107,6 +107,9 @@
                 pin: '.project-images',
                 pinSpacing: false
             });
+
+            // Refresh ScrollTriggers to ensure accuracy
+            ScrollTrigger.refresh();
         });
 
         // Cleanup
