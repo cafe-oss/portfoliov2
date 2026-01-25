@@ -1,5 +1,6 @@
 <script>
     import { onMount } from 'svelte';
+    import { browser } from '$app/environment';
     import { testimonials } from '../data/testimonials.js';
 
     let columnRefs = [];
@@ -40,30 +41,32 @@
 
     <div class="testimonials-grid flex gap-6">
         {#each testimonials as column, columnIndex}
-            <div
-                class="testimonial-column flex flex-col gap-2.5 transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
-                class:translate-y-[-32px]={isInView && columnIndex % 2 === 0}
-                class:translate-y-[32px]={isInView && columnIndex % 2 === 1}
-                bind:this={columnRefs[columnIndex]}
-            >
-                {#each column as card}
-                    <div class="testimonial-card bg-light-bg rounded-default p-10 shadow-default h-[306px] transition-all duration-300 hover:-translate-y-1">
-                        <div class="testimonial-stats mb-[30px]">
-                            <span class="stat-number text-[60px] font-bold text-secondary block leading-none">{card.stat}</span>
-                            <span class="stat-label text-base text-text-light">{card.label}</span>
+            {#if browser}
+                <div
+                    class="testimonial-column flex flex-col gap-2.5 transition-transform duration-[400ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)]"
+                    class:translate-y-[-32px]={isInView && columnIndex % 2 === 0}
+                    class:translate-y-[32px]={isInView && columnIndex % 2 === 1}
+                    bind:this={columnRefs[columnIndex]}
+                >
+                    {#each column as card}
+                        <div class="testimonial-card bg-light-bg rounded-default p-10 shadow-default h-[306px] transition-all duration-300 hover:-translate-y-1">
+                            <div class="testimonial-stats mb-[30px]">
+                                <span class="stat-number text-[60px] font-bold text-secondary block leading-none">{card.stat}</span>
+                                <span class="stat-label text-base text-text-light">{card.label}</span>
+                            </div>
+    
+                            <div class="testimonial-author flex flex-col gap-1.5">
+                                <span class="author-name font-bold">{card.name}</span>
+                                <span class="author-role text-text-light text-sm">{card.role}</span>
+                            </div>
+    
+                            <div class="testimonial-logo mt-[30px]">
+                                <img src={card.logo} alt="Company logo" class="h-10 w-auto invert">
+                            </div>
                         </div>
-
-                        <div class="testimonial-author flex flex-col gap-1.5">
-                            <span class="author-name font-bold">{card.name}</span>
-                            <span class="author-role text-text-light text-sm">{card.role}</span>
-                        </div>
-
-                        <div class="testimonial-logo mt-[30px]">
-                            <img src={card.logo} alt="Company logo" class="h-10 w-auto invert">
-                        </div>
-                    </div>
-                {/each}
-            </div>
+                    {/each}
+                </div>
+            {/if}
         {/each}
     </div>
 </section>
