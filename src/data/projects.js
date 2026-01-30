@@ -8,13 +8,6 @@ export const projects = [
         link: 'https://auseasytrain.com.au/'
     },
     {
-        title: 'Limketkai Permits Management System',
-        description: 'Built a comprehensive WordPress permit system handling work permits, ingress/egress permits, and hot works permits. Features include auto-generated PDF forms with TCPDF, Mailjet email integration for Outlook Classic, and a reviewer/approver dashboard with role-based access. Eliminated their manual process entirely.',
-        tags: ['WordPress', 'PHP', 'TCPDF', 'Mailjet', 'Custom Plugin', 'User Roles'],
-        image: '../assets/images/permits_limketkai.png', // Replace with actual screenshot
-        link: 'https://permits.limketkaimall.com'
-    },
-    {
         title: 'Modern Portfolio Website',
         description: 'Designed and developed a striking portfolio showcasing my web development work. Built with Astro and Svelte for optimal performance, featuring smooth GSAP animations, Tailwind CSS v4 theming, and a unique purple-coral color palette. Demonstrates modern web development practices and responsive design.',
         tags: ['Astro', 'Svelte', 'Tailwind CSS v4', 'GSAP', 'TypeScript'],
@@ -22,10 +15,24 @@ export const projects = [
         link: '/' // Update with your deployed portfolio URL
     },
     {
-        title: 'More Projects Coming Soon',                                                                                                           
-        description: 'Currently working on exciting WordPress and WooCommerce projects. Check back soon to see my latest work in e-commerce solutions, custom integrations, and performance optimization.',
-        tags: ['WordPress', 'WooCommerce', 'Coming Soon'],                                                                                            
-        image: 'https://framerusercontent.com/images/fN12Y24VuMhOOWtztvassUZ8M.png',
+        title: 'Permits Management System Project Soon',
+        description: 'Built a comprehensive WordPress permit system handling work permits, ingress/egress permits, and hot works permits. Features include auto-generated PDF forms with TCPDF, Mailjet email integration for Outlook Classic, and a reviewer/approver dashboard with role-based access. Eliminated their manual process entirely.',
+        tags: ['WordPress', 'PHP', 'TCPDF', 'Mailjet', 'Custom Plugin', 'User Roles'],
+        image: '../assets/images/permits_limketkai.png', // Replace with actual screenshot
+        link: 'https://permits.limketkaimall.com'
+    },
+    {
+        title: 'Wordpress + Timber Project Soon',                                                                                                           
+        description: 'Currently working on an exciting WordPress project using the Timber template. Check back soon to see my latest website with improved performance and optimization.',
+        tags: ['WordPress', 'Timber', 'Tailwind', 'Coming Soon'],                                                                                            
+        image: '../assets/images/soft_gradient.png',
+        link: '#'
+    },
+    {
+        title: 'Next.js Project Coming Soon',                                                                                                           
+        description: 'I’m currently building an exciting appointment-based website. Check back soon to see a solution-driven project in action.',
+        tags: ['Next.js', 'TypeScript', 'Tailwind', 'Coming Soon'],                                                                                            
+        image: '../assets/images/soft_gradient.png',
         link: '#'
     }
 
