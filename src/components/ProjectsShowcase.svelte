@@ -131,12 +131,19 @@
               <div class="project-infos flex-[0_0_40%] flex flex-col">
                   {#each projects as project, index}
                       <div class="project-info min-h-screen flex flex-col justify-center opacity-30 transition-opacity duration-300" class:active={index === currentIndex}>
-                          
-                          <img
-                                src={project.image}
-                                alt={project.title}
-                                class="w-full h-auto object-cover rounded-2xl mb-6 lex min-[769px]:hidden "
-                            >
+                          {#if project.mediaType === 'video'}
+                                <video playsinline muted loop autoplay
+                                    class="w-full rounded-2xl mb-6 min-[769px]:hidden"
+                                >
+                                    <source src={project.image} type="video/mp4">
+                                </video>
+                            {:else}
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
+                                    class="w-full h-auto object-cover rounded-2xl mb-6 min-[769px]:hidden"
+                                >
+                            {/if}
                           <h3 class="text-[28px] md:text-[32px] font-semibold mb-4">{project.title}</h3>
                           <p class="text-text-light mb-5 text-sm md:text-base">{project.description}</p>
 
@@ -169,14 +176,22 @@
               <div class="project-images hidden min-[769px]:flex flex-1 sticky top-[100px] h-[calc(70vh-200px)] items-center justify-center ">
                   <div class="project-images-wrapper relative w-full h-full">
                       {#each projects as project, index}
-                          <!-- Wrapper handles positioning, GSAP animates inner image -->
                           <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-full h-auto max-h-[90%]">
-                              <img
-                                  src={project.image}
-                                  alt={project.title}
-                                  class="project-image w-full h-auto object-cover rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
-                              >
-                          </div>
+                            {#if project.mediaType === 'video'}
+                                <video
+                                    playsinline muted loop autoplay
+                                    class="project-image w-full h-auto object-cover rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
+                                >
+                                    <source src={project.image} type="video/mp4">
+                                </video>
+                            {:else}
+                                <img
+                                    src={project.image}
+                                    alt={project.title}
+                                    class="project-image w-full h-auto object-cover rounded-2xl shadow-[0_20px_60px_rgba(0,0,0,0.15)]"
+                                >
+                            {/if}
+                        </div>
                       {/each}
                   </div>
               </div>
@@ -224,7 +239,7 @@
 
           .project-image {
               width: 100% !important;
-              max-h: 100% !important;
+              max-height: 100% !important;
           }
       }
 
