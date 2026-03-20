@@ -2,12 +2,11 @@
     import { onMount } from 'svelte';
     import { projects } from '../data/projects.js';
 
-    let currentIndex = 0;
+    let currentIndex = 0; // Keep for Svelte reactivity (active class)
 
     onMount(() => {
-        // Wait for GSAP to load from CDN
         if (typeof window.gsap === 'undefined' || typeof window.ScrollTrigger === 'undefined') {
-            console.error('GSAP not loaded yet! Make sure scripts are in Layout.astro');
+            console.error('GSAP not loaded yet!');
             return;
         }
 
@@ -19,48 +18,37 @@
         const projectInfos = document.querySelectorAll('.project-info');
         const projectImages = document.querySelectorAll('.project-image');
 
-        // Use matchMedia to only apply animations on desktop (769px and up)
         const mm = gsap.matchMedia();
 
         mm.add("(min-width: 769px)", () => {
-            // Set initial state - show first image
+            // Use a local variable — NOT Svelte's reactive currentIndex
+            let activeIndex = 0;
+
+            // Set initial state
             projectImages.forEach((img, index) => {
                 if (index === 0) {
-                    gsap.set(img, {
-                        scale: 1,
-                        opacity: 1,
-                        filter: 'blur(0px)',
-                        zIndex: 10
-                    });
+                    gsap.set(img, { scale: 1, opacity: 1, filter: 'blur(0px)', zIndex: 10 });
                 } else {
-                    gsap.set(img, {
-                        scale: 0.9,
-                        opacity: 0,
-                        filter: 'blur(15px)',
-                        zIndex: 1
-                    });
+                    gsap.set(img, { scale: 0.9, opacity: 0, filter: 'blur(15px)', zIndex: 1 });
                 }
             });
 
-            // Function to switch images
             function switchImage(newIndex) {
-                if (newIndex === currentIndex) return;
+                // Use activeIndex (local), not currentIndex (Svelte)
+                if (newIndex === activeIndex) return;
 
-                const currentImage = projectImages[currentIndex];
+                const currentImage = projectImages[activeIndex];
                 const newImage = projectImages[newIndex];
 
-                // Set z-index for layering
                 gsap.set(currentImage, { zIndex: 9 });
                 gsap.set(newImage, { zIndex: 10 });
 
-                // Create timeline for smooth transition
                 const tl = gsap.timeline({
                     onComplete: () => {
                         gsap.set(currentImage, { zIndex: 1 });
                     }
                 });
 
-                // Animate out current image
                 tl.to(currentImage, {
                     scale: 0.9,
                     opacity: 0,
@@ -69,25 +57,30 @@
                     ease: 'power2.in'
                 }, 0);
 
-                // Animate in new image
                 tl.fromTo(newImage,
-                    {
-                        scale: 1.1,
-                        opacity: 0,
-                        filter: 'blur(15px)'
-                    },
-                    {
-                        scale: 1,
-                        opacity: 1,
-                        filter: 'blur(0px)',
-                        duration: 0.5,
-                        ease: 'power2.out'
-                    }, 0.15);
+                    { scale: 1.1, opacity: 0, filter: 'blur(15px)' },
+                    { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 0.5, ease: 'power2.out' },
+                    0.15
+                );
 
-                currentIndex = newIndex;
+                activeIndex = newIndex;       // Update local tracker
+                currentIndex = newIndex;      // Update Svelte reactive (for .active class)
             }
 
-            // Create ScrollTrigger for each project info with better boundary handling
+            // Force reset all images to initial state before setting up triggers
+            function resetAll() {
+                projectImages.forEach((img, index) => {
+                    gsap.set(img, {
+                        scale: index === 0 ? 1 : 0.9,
+                        opacity: index === 0 ? 1 : 0,
+                        filter: index === 0 ? 'blur(0px)' : 'blur(15px)',
+                        zIndex: index === 0 ? 10 : 1
+                    });
+                });
+                activeIndex = 0;
+                currentIndex = 0;
+            }
+
             projectInfos.forEach((info, index) => {
                 ScrollTrigger.create({
                     trigger: info,
@@ -95,24 +88,22 @@
                     end: 'bottom center',
                     onEnter: () => switchImage(index),
                     onEnterBack: () => switchImage(index),
-                    markers: false  // Set to true for debugging
+                    markers: false
                 });
             });
 
-            // Pin the images container
             ScrollTrigger.create({
                 trigger: '.project-card',
                 start: 'top 100px',
                 end: 'bottom bottom',
                 pin: '.project-images',
-                pinSpacing: false
+                pinSpacing: false,
+                onLeaveBack: () => resetAll() // Reset when scrolling above the section
             });
 
-            // Refresh ScrollTriggers to ensure accuracy
             ScrollTrigger.refresh();
         });
 
-        // Cleanup
         return () => {
             mm.revert();
         };
