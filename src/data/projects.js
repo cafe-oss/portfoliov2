@@ -33,6 +33,14 @@ export const projects = [
         link: 'https://github.com/cafe-oss/portfoliov2.git'
     },
     {
+      title: 'Venue Reservation Platform',
+      description: `Built a full-stack venue reservation platform for a major commercial mall in Northern Mindanao. Features a public-facing availability calendar, multi-step booking flow, and a full admin dashboard with booking management, email logs, and reporting. Implements TOTP two-factor authentication, role-based access, automated email notifications with React Email and Brevo SMTP, and Azure PostgreSQL with Prisma ORM. Deployed on Vercel with a custom domain. Currently in beta testing.`,
+      tags: ['Next.js 15', 'TypeScript', 'Prisma', 'Azure PostgreSQL', 'NextAuth.js', 'React Email', 'Tailwind CSS', 'Vercel'],
+      mediaType: 'image',
+      image: '../assets/images/soft_gradient.png',
+      link: '#'
+  },
+    {
         title: 'Next.js Project Coming Soon',                                                                                                           
         description: 'I’m currently building an exciting appointment-based website. Check back soon to see a solution-driven project in action.',
         tags: ['Next.js', 'TypeScript', 'Tailwind', 'Coming Soon'],
