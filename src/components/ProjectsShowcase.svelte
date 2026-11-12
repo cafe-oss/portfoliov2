@@ -1,12 +1,13 @@
+
 <script>
     import { onMount } from 'svelte';
     import { projects } from '../data/projects.js';
 
-    let currentIndex = 0; // Keep for Svelte reactivity (active class)
+    let currentIndex = 0;
 
     onMount(() => {
-        if (typeof window.gsap === 'undefined' || typeof window.ScrollTrigger === 'undefined') {
-            console.error('GSAP not loaded yet!');
+        if (!window.gsap || !window.ScrollTrigger) {
+            console.error('GSAP or ScrollTrigger not loaded.');
             return;
         }
 
@@ -15,93 +16,132 @@
 
         gsap.registerPlugin(ScrollTrigger);
 
-        const projectInfos = document.querySelectorAll('.project-info');
-        const projectImages = document.querySelectorAll('.project-image');
+        const projectInfos = gsap.utils.toArray('.project-info');
+        const projectImages = gsap.utils.toArray('.project-image');
+        const projectCard = document.querySelector('.project-card');
+
+        if (
+            !projectCard ||
+            !projectInfos.length ||
+            projectInfos.length !== projectImages.length
+        ) {
+            return;
+        }
 
         const mm = gsap.matchMedia();
 
-        mm.add("(min-width: 769px)", () => {
-            // Use a local variable — NOT Svelte's reactive currentIndex
+        mm.add('(min-width: 769px)', () => {
             let activeIndex = 0;
 
-            // Set initial state
-            projectImages.forEach((img, index) => {
-                if (index === 0) {
-                    gsap.set(img, { scale: 1, opacity: 1, filter: 'blur(0px)', zIndex: 10 });
-                } else {
-                    gsap.set(img, { scale: 0.9, opacity: 0, filter: 'blur(15px)', zIndex: 1 });
-                }
+            // Set consistent initial states.
+            projectImages.forEach((image, index) => {
+                gsap.set(image, {
+                    opacity: index === 0 ? 1 : 0,
+                    scale: index === 0 ? 1 : 0.95,
+                    filter: index === 0
+                        ? 'blur(0px)'
+                        : 'blur(12px)',
+                    zIndex: index === 0 ? 10 : 1
+                });
             });
 
             function switchImage(newIndex) {
-                // Use activeIndex (local), not currentIndex (Svelte)
-                if (newIndex === activeIndex) return;
+                if (
+                    newIndex === activeIndex ||
+                    newIndex < 0 ||
+                    newIndex >= projectImages.length
+                ) {
+                    return;
+                }
 
-                const currentImage = projectImages[activeIndex];
-                const newImage = projectImages[newIndex];
+                activeIndex = newIndex;
+                currentIndex = newIndex;
 
-                gsap.set(currentImage, { zIndex: 9 });
-                gsap.set(newImage, { zIndex: 10 });
+                // Stop previous transitions before starting another.
+                gsap.killTweensOf(projectImages);
 
-                const tl = gsap.timeline({
-                    onComplete: () => {
-                        gsap.set(currentImage, { zIndex: 1 });
+                projectImages.forEach((image, index) => {
+                    if (index !== newIndex) {
+                        gsap.set(image, {
+                            opacity: 0,
+                            scale: 0.95,
+                            filter: 'blur(12px)',
+                            zIndex: 1
+                        });
                     }
                 });
 
-                tl.to(currentImage, {
-                    scale: 0.9,
+                const nextImage = projectImages[newIndex];
+
+                gsap.set(nextImage, {
                     opacity: 0,
-                    filter: 'blur(15px)',
-                    duration: 0.3,
-                    ease: 'power2.in'
-                }, 0);
+                    scale: 1.05,
+                    filter: 'blur(12px)',
+                    zIndex: 10
+                });
 
-                tl.fromTo(newImage,
-                    { scale: 1.1, opacity: 0, filter: 'blur(15px)' },
-                    { scale: 1, opacity: 1, filter: 'blur(0px)', duration: 0.5, ease: 'power2.out' },
-                    0.15
-                );
-
-                activeIndex = newIndex;       // Update local tracker
-                currentIndex = newIndex;      // Update Svelte reactive (for .active class)
+                gsap.to(nextImage, {
+                    opacity: 1,
+                    scale: 1,
+                    filter: 'blur(0px)',
+                    duration: 0.45,
+                    ease: 'power2.out',
+                    overwrite: true
+                });
             }
 
-            // Force reset all images to initial state before setting up triggers
-            function resetAll() {
-                projectImages.forEach((img, index) => {
-                    gsap.set(img, {
-                        scale: index === 0 ? 1 : 0.9,
-                        opacity: index === 0 ? 1 : 0,
-                        filter: index === 0 ? 'blur(0px)' : 'blur(15px)',
-                        zIndex: index === 0 ? 10 : 1
-                    });
+            function getActiveIndex() {
+                const viewportCenter = window.innerHeight / 2;
+                let closestIndex = 0;
+                let closestDistance = Infinity;
+
+                projectInfos.forEach((info, index) => {
+                    const rect = info.getBoundingClientRect();
+                    const center = rect.top + rect.height / 2;
+                    const distance = Math.abs(
+                        center - viewportCenter
+                    );
+
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestIndex = index;
+                    }
                 });
-                activeIndex = 0;
-                currentIndex = 0;
+
+                return closestIndex;
             }
 
-            projectInfos.forEach((info, index) => {
-                ScrollTrigger.create({
-                    trigger: info,
-                    start: 'top center',
-                    end: 'bottom center',
-                    onEnter: () => switchImage(index),
-                    onEnterBack: () => switchImage(index),
-                    markers: false
-                });
-            });
+            function syncActiveProject() {
+                switchImage(getActiveIndex());
+            }
 
-            ScrollTrigger.create({
-                trigger: '.project-card',
-                start: 'top 100px',
-                end: 'bottom bottom',
-                pin: '.project-images',
-                pinSpacing: false,
-                onLeaveBack: () => resetAll() // Reset when scrolling above the section
+            const trigger = ScrollTrigger.create({
+                trigger: projectCard,
+                start: 'top center',
+                end: 'bottom center',
+                invalidateOnRefresh: true,
+
+                onEnter: syncActiveProject,
+                onEnterBack: syncActiveProject,
+                onUpdate: syncActiveProject,
+                onRefresh: syncActiveProject,
+
+                onLeaveBack: () => {
+                    switchImage(0);
+                },
+
+                onLeave: () => {
+                    switchImage(projectImages.length - 1);
+                }
             });
 
             ScrollTrigger.refresh();
+
+            return () => {
+                trigger.kill();
+                gsap.killTweensOf(projectImages);
+                gsap.set(projectImages, { clearProps: 'all' });
+            };
         });
 
         return () => {
@@ -109,6 +149,7 @@
         };
     });
 </script>
+
 
 <section class="projects py-20" id="work">
       <div class="projects-header text-center max-w-[700px] mx-auto mb-[60px]">
@@ -164,7 +205,7 @@
               </div>
 
               <!-- Right: Project Images (Sticky) -->
-              <div class="project-images hidden min-[769px]:flex flex-1 sticky top-[100px] h-[calc(70vh-200px)] items-center justify-center ">
+              <div class="project-images hidden min-[769px]:flex flex-1 self-start sticky top-[100px] h-[calc(100vh-140px)] max-h-[680px] items-center justify-center">
                   <div class="project-images-wrapper relative w-full h-full">
                       {#each projects as project, index}
                           <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[90%] max-w-full h-auto max-h-[90%]">
